@@ -66,6 +66,8 @@ BEGIN_MESSAGE_MAP(CMFCGdiPlusDlg, CDialogEx)
 	ON_WM_PAINT()
 	ON_WM_QUERYDRAGICON()
 	ON_BN_CLICKED(IDC_BUTTON1, &CMFCGdiPlusDlg::OnBnClickedButton1)
+	ON_BN_CLICKED(IDC_BUTTON2, &CMFCGdiPlusDlg::OnBnClickedButton2)
+	ON_BN_CLICKED(IDC_BUTTON3, &CMFCGdiPlusDlg::OnBnClickedButton3)
 END_MESSAGE_MAP()
 
 
@@ -170,4 +172,32 @@ void CMFCGdiPlusDlg::OnBnClickedButton1()
 	g.SetSmoothingMode(SmoothingModeAntiAlias);
 	g.DrawEllipse(&p, 10, 10, 300, 200);
 */
+}
+
+
+void CMFCGdiPlusDlg::OnBnClickedButton2()
+{
+	CClientDC dc(this);
+	Image im(L"p.png");
+	Graphics graphics(dc);
+	graphics.DrawImage(&im, 0, 0,im.GetWidth()/2,
+		im.GetHeight()/2);
+}
+
+
+void CMFCGdiPlusDlg::OnBnClickedButton3()
+{ //https://docs.microsoft.com/en-us/windows/win32/gdiplus/-gdiplus-rotating-reflecting-and-skewing-images-use
+	CClientDC dc(this);
+	Graphics g(dc);
+	Image im(L"p.png");
+	int w = im.GetWidth() / 2;
+	int h = im.GetHeight() / 2;
+	Point dp[] = {
+      Point(w+w/2, 0),  // destination for upper-left point of original
+      Point(w+w, w/2),   // destination for upper-right point of original
+      Point(w/4, h/2) }; // destination for lower-left point of original
+	// Draw the image unaltered with its upper-left corner at (0, 0).
+	g.DrawImage(&im, 0, 0, w, h);
+	// Draw the image mapped to the parallelogram.
+	g.DrawImage(&im, dp, 3);
 }
