@@ -189,13 +189,13 @@ void CMFCGdiPlusDlg::OnBnClickedButton3()
 { //https://docs.microsoft.com/en-us/windows/win32/gdiplus/-gdiplus-rotating-reflecting-and-skewing-images-use
 	CClientDC dc(this);
 	Graphics g(dc);
-	Image im(L"p.png");
+	Image im(L"m.png");
 	int w = im.GetWidth() / 2;
 	int h = im.GetHeight() / 2;
 	Point dp[] = {
-      Point(w+w/2, 0),  // destination for upper-left point of original
-      Point(w+w, w/2),   // destination for upper-right point of original
-      Point(w/4, h/2) }; // destination for lower-left point of original
+      Point(5+w, 0),  // destination for upper-left point of original
+      Point(5+w+w/2 + 5, h/4),   // destination for upper-right point of original
+      Point(5+w, h) }; // destination for lower-left point of original
 	// Draw the image unaltered with its upper-left corner at (0, 0).
 	g.DrawImage(&im, 0, 0, w, h);
 	// Draw the image mapped to the parallelogram.
